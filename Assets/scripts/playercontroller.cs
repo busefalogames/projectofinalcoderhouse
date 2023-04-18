@@ -24,6 +24,7 @@ public class playercontroller : MonoBehaviour
     private bool isgrounded;
     //******** health
     public float sanity; //could also be life
+    public GameObject startzone;
     //******flaslight
     public float flashlightbattery;
     private float flashlightrealbattery;
@@ -148,7 +149,7 @@ public class playercontroller : MonoBehaviour
         }
         if(collision.gameObject.tag == "deathzone")
         {
-            transform.position = new Vector3(0, 0, 0);
+            transform.position = startzone.transform.position;
         }
     }
 }
