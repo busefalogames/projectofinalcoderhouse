@@ -7,9 +7,11 @@ TagManager:
   - player
   - Floor
   - Recoveryzone
-  - Dagerzone
   - Batery
   - deathzone
+  - Dangerzone
+  - Door
+  - Victory
   layers:
   - Default
   - TransparentFX

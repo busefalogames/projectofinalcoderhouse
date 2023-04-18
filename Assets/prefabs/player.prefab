@@ -517,6 +517,8 @@ MonoBehaviour:
   player: {fileID: 4282047330464891833}
   mapcamera: {fileID: 0}
   flashlight: {fileID: 9095716074812203676}
+  defetscreen: {fileID: 0}
+  victoryscreen: {fileID: 0}
   basespeed: 0.02
   speedmodifier: 2
   playercamaraspeed: 1
@@ -527,5 +529,6 @@ MonoBehaviour:
   flashlightbattery: 100
   lightlevel: 15
   bateryconsumption: 0.1
+  baterycharge: 20
   lowbaterrymodifier: 2
   testing: 0
