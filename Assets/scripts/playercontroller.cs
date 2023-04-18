@@ -10,6 +10,8 @@ public class playercontroller : MonoBehaviour
     public Rigidbody player;
     public Camera mapcamera;
     public Light flashlight;
+    public GameObject defetscreen;
+    public GameObject victoryscreen;
     //******movement
     public float basespeed;
     public float speedmodifier;
@@ -24,6 +26,7 @@ public class playercontroller : MonoBehaviour
     private bool isgrounded;
     //******** health
     public float sanity; //could also be life
+    private float actualsanity;
     public GameObject startzone;
     //******flaslight
     public float flashlightbattery;
@@ -32,8 +35,12 @@ public class playercontroller : MonoBehaviour
     private bool flashlighton;
     public float bateryconsumption;
     private float bateryrealconsumption;
+    public float baterycharge;
     private bool lowbattery; //ill use this to make shure that the if that makes it so the light losses some intensity doesnt play more than once
     public float lowbaterrymodifier; //the value by witch the low batterymode affects intesity and consumption of battery
+    //********interactableshit
+    private bool interactablebatery;
+    private bool interactabledoor;
 
     //******testing enables some wild shit, be shure to TURN IT OFF*******//
     public bool testing;
@@ -48,12 +55,16 @@ public class playercontroller : MonoBehaviour
         isgrounded = true;
         flashlight.intensity = lightlevel;
         flashlighton = true;
+        actualsanity = sanity;
+        defetscreen.SetActive(false);
+        victoryscreen.SetActive(false);
+        interactablebatery = false;
 
     }
 
     void Update()
     {
-        
+        Debug.Log(actualsanity);
         //**********MOVEMENT**********//
         xmovement = Input.GetAxisRaw("Horizontal") * speed;
         zmovement = Input.GetAxisRaw("Vertical") * speed;
@@ -82,8 +93,8 @@ public class playercontroller : MonoBehaviour
             isgrounded = false;
         }
         //**********flashlight**********//
-        Debug.Log(flashlightrealbattery);
-        Debug.Log(flashlighton);
+        
+
         if (Input.GetKeyDown(KeyCode.O) && flashlighton == false && flashlightrealbattery > 0)
         {
             flashlighton = true;
@@ -115,25 +126,29 @@ public class playercontroller : MonoBehaviour
             flashlightrealbattery = 0;
         }
 
+        if (Input.GetKeyDown(KeyCode.G) && interactablebatery == true)
+        {
+            flashlightrealbattery += baterycharge;
+            Debug.Log("la bateria es");
+            Debug.Log(flashlightrealbattery);
+        }
+
+
         //*****for testing only******//
-
-
-
-        //*****for testing only******//
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            testing = !testing;
+        }
         if (testing)
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                testing = false;
+                testing = !testing;
             }
-
-            //**** esto se tiene que mover al start*****///
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            /*esto hace que el mouse vuelva a ser visible, ideal para un menu de pausa o algo asi
-             *            Cursor.lockState = CursorLockMode.None;
-                          Cursor.visible = true;
-            */
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
         }
 
     }
@@ -142,14 +157,90 @@ public class playercontroller : MonoBehaviour
     //**********STATUSEFFECTS**********//
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Floor")
+        if (collision.gameObject.CompareTag("Floor"))
         {
             isgrounded = true;
             Debug.Log("piso");
         }
-        if(collision.gameObject.tag == "deathzone")
+
+
+        if (collision.gameObject.CompareTag("Victory"))
+        {
+            Victory();
+        }
+        if (collision.gameObject.CompareTag("deathzone"))
         {
             transform.position = startzone.transform.position;
         }
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Recoveryzone"))
+        {
+            heal();
+            
+        }
+        if (other.gameObject.CompareTag("Dangerzone"))
+        {
+            damage();
+            Debug.Log("metoyvolviendoloco");
+        }
+    }
+   
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Batery"))
+        {
+            interactablebatery = true;
+            Debug.Log("bateria");
+        }
+        if(other.gameObject.CompareTag("Door"))
+        {
+            interactabledoor = true;
+            Debug.Log("puerta");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        interactablebatery = false;
+        interactabledoor = false;
+        Debug.Log("no more interactableshit");
+    }
+
+    private void heal()
+    {
+        actualsanity++;
+        Debug.Log(actualsanity);
+        if (actualsanity >= sanity)
+        {
+            actualsanity = sanity;
+        }
+    }
+    private void damage()
+    {
+        actualsanity--;
+        if (actualsanity <= 0)
+        {
+            death();
+        }
+            
+    }
+    private void death()
+    {
+        Debug.Log("lmaoimded");
+        if (testing)
+        {
+            transform.position = startzone.transform.position;
+        }
+        else
+        {
+            defetscreen.SetActive(true);
+        }
+    }
+    private void Victory()
+    {
+        victoryscreen.SetActive(true);
     }
 }
