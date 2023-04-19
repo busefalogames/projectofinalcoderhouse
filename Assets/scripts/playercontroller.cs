@@ -69,7 +69,7 @@ public class playercontroller : MonoBehaviour
         xmovement = Input.GetAxisRaw("Horizontal") * speed;
         zmovement = Input.GetAxisRaw("Vertical") * speed;
 
-        player.transform.Translate(xmovement, 0, zmovement);
+        player.transform.Translate(xmovement * Time.deltaTime, 0, zmovement * Time.deltaTime);
 
         mousex = Input.GetAxis("Mouse X");
         mousey = Input.GetAxis("Mouse Y");
