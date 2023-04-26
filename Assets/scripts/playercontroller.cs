@@ -150,14 +150,14 @@ public class playercontroller : MonoBehaviour
             //Cursor.lockState = CursorLockMode.None;
             //Cursor.visible = true;
         }
-
+        
     }
     //**********ANIMATIONS**********//
-
+    
     //**********STATUSEFFECTS**********//
-    private void OnCollisionEnter(Collision collision)
+   /* private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Floor"))
+       if (collision.gameObject.CompareTag("Floor"))
         {
             isgrounded = true;
             Debug.Log("piso");
@@ -172,7 +172,7 @@ public class playercontroller : MonoBehaviour
         {
             transform.position = startzone.transform.position;
         }
-
+ 
     }
 
     private void OnTriggerStay(Collider other)
@@ -207,7 +207,7 @@ public class playercontroller : MonoBehaviour
         interactablebatery = false;
         interactabledoor = false;
         Debug.Log("no more interactableshit");
-    }
+    }*/
 
     private void heal()
     {

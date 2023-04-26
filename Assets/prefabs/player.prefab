@@ -519,7 +519,7 @@ MonoBehaviour:
   flashlight: {fileID: 9095716074812203676}
   defetscreen: {fileID: 0}
   victoryscreen: {fileID: 0}
-  basespeed: 0.02
+  basespeed: 5
   speedmodifier: 2
   playercamaraspeed: 1
   jumpforce: 5
