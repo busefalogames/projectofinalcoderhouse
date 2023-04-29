@@ -7,11 +7,12 @@ public class playercontroller : MonoBehaviour
     //******************************************************//
     //**********************VARIABLES***********************//
     public Camera pcamara;
-    public Rigidbody player;
     public Camera mapcamera;
     public Light flashlight;
     public GameObject defetscreen;
     public GameObject victoryscreen;
+    public Rigidbody player;
+    public CapsuleCollider collider;
     //******movement
     public float basespeed;
     public float speedmodifier;
@@ -24,6 +25,8 @@ public class playercontroller : MonoBehaviour
     private float currentroationX;
     public float jumpforce;
     private bool isgrounded;
+    private bool iscrouched;
+   
     //******** health
     public float sanity; //could also be life
     private float actualsanity;
@@ -59,6 +62,8 @@ public class playercontroller : MonoBehaviour
         defetscreen.SetActive(false);
         victoryscreen.SetActive(false);
         interactablebatery = false;
+        iscrouched = true;
+
 
     }
 
@@ -68,16 +73,31 @@ public class playercontroller : MonoBehaviour
         //**********MOVEMENT**********//
         xmovement = Input.GetAxisRaw("Horizontal") * speed;
         zmovement = Input.GetAxisRaw("Vertical") * speed;
-        Debug.Log(zmovement);
-        player.transform.Translate(xmovement * Time.deltaTime, 0, zmovement * Time.deltaTime);
+
+
+        transform.Translate(xmovement * Time.deltaTime, 0, zmovement * Time.deltaTime);
+
 
         mousex = Input.GetAxis("Mouse X");
         mousey = Input.GetAxis("Mouse Y");
-        player.transform.Rotate(0, mousex * playercamaraspeed, 0);
+        transform.Rotate(0, mousex * playercamaraspeed, 0);
+
+        /*agacharse*/
+
+        if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl) && iscrouched == false)
+        {
+            collider.height = collider.height / 2f;
+            iscrouched = true;
+        }
+        if(Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl) && iscrouched == true)
+        {
+            collider.height = collider.height * 2;
+            iscrouched = false;
+        }
 
         currentroationX -= mousey * playercamaraspeed;
         currentroationX = Mathf.Clamp(currentroationX, -90, 90); // esto limita el movimiento de la camara en y para que no se rompa el cuello
-        transform.localRotation = Quaternion.Euler(currentroationX, player.transform.localRotation.eulerAngles.y, 0); //esto utiliza valores normalizados para permitir la rotacion de camara sin romperle el cuello al jugador porque lo limitamos y usando el mouse
+        transform.localRotation = Quaternion.Euler(currentroationX, transform.localRotation.eulerAngles.y, 0); //esto utiliza valores normalizados para permitir la rotacion de camara sin romperle el cuello al jugador porque lo limitamos y usando el mouse
 
         if(Input.GetKey(KeyCode.LeftShift))
         {
@@ -87,7 +107,7 @@ public class playercontroller : MonoBehaviour
         {
             speed = basespeed;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isgrounded == true)
+        if (Input.GetKeyDown(KeyCode.Space) && isgrounded == true && iscrouched == false)
         {
             player.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
             isgrounded = false;
@@ -150,14 +170,14 @@ public class playercontroller : MonoBehaviour
             //Cursor.lockState = CursorLockMode.None;
             //Cursor.visible = true;
         }
-
+        
     }
     //**********ANIMATIONS**********//
-
+    
     //**********STATUSEFFECTS**********//
-    private void OnCollisionEnter(Collision collision)
+   private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Floor"))
+       if (collision.gameObject.CompareTag("Floor"))
         {
             isgrounded = true;
             Debug.Log("piso");
@@ -172,7 +192,7 @@ public class playercontroller : MonoBehaviour
         {
             transform.position = startzone.transform.position;
         }
-
+ 
     }
 
     private void OnTriggerStay(Collider other)
