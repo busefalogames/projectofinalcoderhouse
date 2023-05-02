@@ -52,7 +52,7 @@ public class playercontroller : MonoBehaviour
     {
         flashlightrealbattery = flashlightbattery;
         bateryrealconsumption = bateryconsumption;
-        lowbattery = true;
+        lowbattery = false;
         testing = true;
         speed = basespeed;
         isgrounded = true;
@@ -70,6 +70,7 @@ public class playercontroller : MonoBehaviour
     void Update()
     {
         Debug.Log(actualsanity);
+        Debug.Log(flashlightrealbattery);
         //**********MOVEMENT**********//
         xmovement = Input.GetAxisRaw("Horizontal") * speed;
         zmovement = Input.GetAxisRaw("Vertical") * speed;
@@ -87,11 +88,13 @@ public class playercontroller : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl) && iscrouched == false)
         {
             collider.height = collider.height / 2f;
+            collider.center = new Vector3(0, 0.5f, 0);
             iscrouched = true;
         }
         if(Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl) && iscrouched == true)
         {
             collider.height = collider.height * 2;
+            collider.center = new Vector3(0, 0, 0);
             iscrouched = false;
         }
 
@@ -127,18 +130,26 @@ public class playercontroller : MonoBehaviour
         if (flashlighton)
         {
             flashlight.intensity = lightlevel;
-            flashlightrealbattery = flashlightrealbattery - bateryrealconsumption;
+            flashlightrealbattery = flashlightrealbattery - bateryrealconsumption * Time.deltaTime;
         }
         else
         {
             flashlight.intensity = 0;
         }
         //this makes it so that the last 10% of battery lasts a littlle bit more but also makes it so that it shines less
-        if (flashlightrealbattery <= (flashlightbattery / 10) && lowbattery) ///lowers intensity when batery is low
+        if (flashlightrealbattery <= (flashlightbattery / 10)) ///lowers intensity when batery is low
+        {
+            lowbattery = true;   
+        }
+        else
+        {
+            lowbattery = false;
+        }
+        Debug.Log(lowbattery);
+        if (lowbattery)
         {
             bateryrealconsumption = bateryconsumption / lowbaterrymodifier;
             flashlight.intensity = flashlight.intensity / lowbaterrymodifier;
-            lowbattery = false;
         }
         if (flashlightrealbattery <= 0) //turnsoff when batery dies
         {
