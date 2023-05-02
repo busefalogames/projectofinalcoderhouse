@@ -85,11 +85,13 @@ public class playercontroller : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl) && iscrouched == false)
         {
             collider.height = collider.height / 2f;
+            collider.center = new Vector3(0, 0.5f, 0);
             iscrouched = true;
         }
         if(Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl) && iscrouched == true)
         {
             collider.height = collider.height * 2;
+            collider.center = new Vector3(0, 0, 0);
             iscrouched = false;
         }
 
