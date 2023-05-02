@@ -1,0 +1,8 @@
+We corrected errors in the level design.
+
+
+We identified and corrected bugs in the level designs that were causing problems with textures and negatively impacting the appearance of the game during testing evaluations. These bugs were affecting the overall quality of the game, making it difficult for testers to accurately assess gameplay and provide valuable feedback. By addressing these issues, we were able to improve the game's performance and create a more enjoyable experience for players.
+
+
+
+

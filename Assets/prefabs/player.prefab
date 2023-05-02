@@ -520,8 +520,10 @@ MonoBehaviour:
   flashlight: {fileID: 9095716074812203676}
   defetscreen: {fileID: 0}
   victoryscreen: {fileID: 0}
+
   player: {fileID: 2262723955164813051}
   collider: {fileID: 3318611728950159613}
+
   basespeed: 5
   speedmodifier: 2
   playercamaraspeed: 1
