@@ -527,7 +527,8 @@ MonoBehaviour:
   playercamaraspeed: 1
   jumpforce: 5
   sanity: 100
-  startzone: {fileID: 0}
+  startzone: {fileID: 1317625807446992487, guid: 00000a7e54f9b4143841df1d8a91a1ed,
+    type: 3}
   flashlightbattery: 100
   lightlevel: 20
   bateryconsumption: 2
