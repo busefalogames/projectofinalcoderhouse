@@ -145,7 +145,6 @@ public class playercontroller : MonoBehaviour
         {
             lowbattery = false;
         }
-        Debug.Log(lowbattery);
         if (lowbattery)
         {
             bateryrealconsumption = bateryconsumption / lowbaterrymodifier;
