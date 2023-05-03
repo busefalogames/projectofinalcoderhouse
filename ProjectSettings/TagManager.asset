@@ -12,6 +12,12 @@ TagManager:
   - Dangerzone
   - Door
   - Victory
+  - checkpoint1
+  - checkpoint2
+  - checkpoint3
+  - checkpoint4
+  - wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,7 +26,7 @@ TagManager:
   - Water
   - UI
   - itmesHeld
-  - 
+  - checkpoints
   - 
   - 
   - 
