@@ -23,14 +23,14 @@ public class enemyController : MonoBehaviour
     private bool hunting;
     private bool fleeing;
     private bool tutorial;
-    public Collider AOE;
-    // Start is called before the first frame update
+    private bool walking;
     void Start()
     {
         tutorial = false;   
         disapear = false;
         hunting = false;
         fleeing = false;
+        currentcheckpoint = checkpoint1.transform.position;
     }
 
     // Update is called once per frame
@@ -40,9 +40,9 @@ public class enemyController : MonoBehaviour
         {
             case enemyType.tutorial:
                 tutorial = true;
-                if(AOE.CompareTag("Player"))
+                if (walking)
                 {
-                    Debug.Log("fuckme");
+                    walk();
                 }
                 Debug.Log("tutorial");
                 break;
@@ -69,37 +69,48 @@ public class enemyController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("idetect");
-        if (collider.CompareTag("player"))
-        {
-            Debug.Log("player");
+        Debug.Log("idetecttrigger");
+ 
             if (disapear)
             {
                 Destroy(this);
             }
-            if (tutorial)
+            if (tutorial && collider.gameObject.CompareTag("Player"))
             {
-                currentcheckpoint = checkpoint1.transform.position;
+                Debug.Log("entered trigger");
+                
+                walking = true;
             }
             hunting = true;
             fleeing = true;
 
-        }
-       
     }
-    
+    private void OnTriggerExit(Collider other)
+    {
+        if (tutorial && other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("exitedtrigger");
+            walking = false;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
-        
-        if(other.gameObject.CompareTag("Player"))
+        Debug.Log("staytrigger");
+        /*if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("idetect2");
-            walk();
+            Debug.Log("triggerstay"); //this is triggering but the walk is not
+            walking = true;
         }
+        else
+        {
+            walking = false;
+        }*/
     }
 
     private void OnCollisionEnter(Collision collider)
     {
+        Debug.Log("idetectcolission");
         if (collider.gameObject.CompareTag("checkpoint1"))
         {
             currentcheckpoint = checkpoint2.transform.position;
@@ -114,6 +125,11 @@ public class enemyController : MonoBehaviour
         {
             currentcheckpoint = checkpoint4.transform.position;
             Debug.Log("checkpoint 4");
+        }
+        if(collider.gameObject.CompareTag("checkpoint4"))
+        {
+            Debug.Log("endofpathing");
+            currentcheckpoint = transform.position;
         }
     }
     void walk()

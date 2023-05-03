@@ -136,7 +136,6 @@ MonoBehaviour:
   checkpoint3: {fileID: 6840041192202999409}
   checkpoint4: {fileID: 1511195899378020540}
   player: {fileID: 4034152458563236142, guid: da15ff6a39b16a649b8a37ef98c400a0, type: 3}
-  AOE: {fileID: 5901166615666160151}
 --- !u!1 &1511195899378020540
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +149,7 @@ GameObject:
   m_Layer: 7
   m_Name: checkpoint4
   m_TagString: checkpoint4
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -195,7 +194,7 @@ GameObject:
   m_Layer: 7
   m_Name: checkpoint1
   m_TagString: checkpoint1
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -240,7 +239,7 @@ GameObject:
   - component: {fileID: 1367934957909526409}
   - component: {fileID: 5901166615666160151}
   m_Layer: 0
-  m_Name: nose
+  m_Name: areaOfDetection
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,8 +253,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5506375274157483478}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.702}
-  m_LocalScale: {x: 0.10723714, y: 0.09805644, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3216571948486253393}
@@ -322,7 +321,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 45, y: 20, z: 5}
+  m_Size: {x: 70, y: 20, z: 70}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6097208761348004363
 GameObject:
@@ -373,7 +372,7 @@ GameObject:
   m_Layer: 7
   m_Name: checkpoint3
   m_TagString: checkpoint3
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -418,7 +417,7 @@ GameObject:
   m_Layer: 7
   m_Name: checkpoint2
   m_TagString: checkpoint2
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

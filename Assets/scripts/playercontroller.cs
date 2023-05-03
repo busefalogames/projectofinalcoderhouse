@@ -69,8 +69,6 @@ public class playercontroller : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(actualsanity);
-        Debug.Log(flashlightrealbattery);
         //**********MOVEMENT**********//
         xmovement = Input.GetAxisRaw("Horizontal") * speed;
         zmovement = Input.GetAxisRaw("Vertical") * speed;
